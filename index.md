@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Jennifer Panzo
 layout: home
 ---
 
