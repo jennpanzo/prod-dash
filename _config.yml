@@ -4,8 +4,8 @@ theme: just-the-docs
 
 url: https://just-the-docs.github.io
 
-aux_links:
-  Jennifer Panzo: https://github.com/jennpanzo
+# aux_links:
+#   Jennifer Panzo: https://github.com/jennpanzo
 
 layout: minimal
 title: Production Efficiency Dashboard
