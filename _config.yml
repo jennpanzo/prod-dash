@@ -10,7 +10,7 @@ favicon_ico: "/assets/images/favicon.ico"
 #   Jennifer Panzo: https://github.com/jennpanzo
 
 layout: minimal
-title: Production Efficiency Dashboard
+title: Production Dashboard
 nav_enabled: false
 search_enabled: false
 
