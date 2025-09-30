@@ -128,15 +128,17 @@ These KPIs are purely operational in focus and exclude any marketing, revenue, o
 
 ## **Visualization in Looker Studio**
 
+![Production Dashboard](images/dash-01.jpg)
+
 The final product is a dynamic Looker Studio dashboard that integrates all key KPIs and trends into a user-friendly visual format.
 
 ### Dashboard Components
 
-* **Monthly Production Overview**: Line graphs of task volume
-* **Handling Time by Assignee**: Boxplots or bar charts
-* **Team Performance**: Heatmaps showing completion rate
-* **Partner Contributions**: Pie charts or tables of partner-linked tasks
-* **Filter Options**: Time range, team member, roster, partner
+* **Monthly Production Overview**: Bar graphs of task volume
+* **Tasks Completed by Assignee**: Horizontal stacked bar charts
+* **Team Performance**: Scorecards showing open/completed tasks and the Average Handle Time (AHT)
+* **Task Distribution**: Pie chart of task category distribution
+* **Filter Options**: Date, team member, priority task, special task
 
 ### Data Pipeline
 
