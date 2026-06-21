@@ -3,7 +3,7 @@ title: Jennifer Panzo
 layout: home
 ---
 
-# Operations Efficiency Dashboard
+# Production Efficiency Dashboard
 ###### _Tools: Microsoft Excel, MySQL, Looker Studio_
 <br/>
 
@@ -131,7 +131,7 @@ These KPIs are purely operational in focus and exclude any marketing, revenue, o
 
 ## **Visualization in Looker Studio**
 
-![Operations Dashboard](images/dash-03.png)
+![Production Dashboard](images/dash-04.png)
 
 The final product is a dynamic Looker Studio dashboard that integrates all key KPIs and trends into a user-friendly visual format.
 
