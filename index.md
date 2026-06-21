@@ -3,7 +3,7 @@ title: Jennifer Panzo
 layout: home
 ---
 
-# Operations Efficiency Data Dashboard
+# Operations Efficiency Dashboard
 ###### _Tools: Microsoft Excel, MySQL, Looker Studio_
 <br/>
 
