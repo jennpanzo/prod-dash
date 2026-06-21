@@ -3,7 +3,7 @@ title: Jennifer Panzo
 layout: home
 ---
 
-# Production Efficiency Data Dashboard
+# Operations Efficiency Data Dashboard
 ###### _Tools: Microsoft Excel, MySQL, Looker Studio_
 <br/>
 
@@ -118,17 +118,20 @@ After retrieving cleaned, structured data via SQL, we performed further analysis
 
 Here are some of the most relevant performance metrics we tracked:
 
-* **Total production rate (daily/weekly/monthly)**: Tasks completed over time intervals
-* **Average handling time**: Time taken to complete a task from assignment to due date
-* **Completion rate per roster/team**: % of tasks completed vs. assigned
-* **Backlog rate**: Number of overdue tasks divided by total tasks
-* **Distribution of task types or subtasks**: Helps in resource allocation
+* **Completed Tasks (Monthly/Weekly)**: Total number of tasks completed within the selected reporting period.
+* **Open Tasks**: Tasks that remain in progress or have not yet been completed.
+* **Average Handling Time (AHT)**: Average number of minutes taken by the team to complete a task.
+* **Tasks by Team Member**: Distribution of workload and completed tasks across individual contributors.
+* **Daily Production Output**: Number of tasks completed each day, providing visibility into productivity trends and capacity.
+* **Completion Rate**: Percentage of assigned tasks successfully completed during the reporting period.
+* **QA Pass Rate**: Percentage of completed tasks that passed quality assurance review on the first evaluation.
+* **Tasks Stuck in Production**: Tasks flagged as delayed, blocked, or requiring additional action before completion.
 
 These KPIs are purely operational in focus and exclude any marketing, revenue, or customer-related metrics.
 
 ## **Visualization in Looker Studio**
 
-![Production Dashboard](images/dash-01.png)
+![Operations Dashboard](images/dash-03.png)
 
 The final product is a dynamic Looker Studio dashboard that integrates all key KPIs and trends into a user-friendly visual format.
 
@@ -139,6 +142,14 @@ The final product is a dynamic Looker Studio dashboard that integrates all key K
 * **Team Performance**: Scorecards showing open/completed tasks and the Average Handle Time (AHT)
 * **Task Distribution**: Pie chart of task category distribution
 * **Filter Options**: Date, team member, priority task, special task
+
+
+* **Monthly Production Overview**: Bar chart showing completed tasks per day.
+* **Tasks by Team Member**: Horizontal stacked bar charts showing comparison of completed and open tasks by team member.
+* **Team Performance**: Scorecards highlighting key operational metrics, including total open tasks, completed tasks, and Average Handling Time (AHT).
+* **Performance Indicators**: Gauge cards for Completion Rate and QA Pass Rate.
+* **Production Bottlenecks**: Table of tasks stuck in production, including delay reasons and hours blocked.
+* **Filter Options**: Date Range filter for analyzing performance across selected periods.
 
 ### Data Pipeline
 
