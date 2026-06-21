@@ -137,13 +137,6 @@ The final product is a dynamic Looker Studio dashboard that integrates all key K
 
 ### Dashboard Components
 
-* **Monthly Production Overview**: Bar graphs of task volume
-* **Tasks Completed by Assignee**: Horizontal stacked bar charts
-* **Team Performance**: Scorecards showing open/completed tasks and the Average Handle Time (AHT)
-* **Task Distribution**: Pie chart of task category distribution
-* **Filter Options**: Date, team member, priority task, special task
-
-
 * **Monthly Production Overview**: Bar chart showing completed tasks per day.
 * **Tasks by Team Member**: Horizontal stacked bar charts showing comparison of completed and open tasks by team member.
 * **Team Performance**: Scorecards highlighting key operational metrics, including total open tasks, completed tasks, and Average Handling Time (AHT).
