@@ -131,7 +131,7 @@ These KPIs are purely operational in focus and exclude any marketing, revenue, o
 
 ## **Visualization in Looker Studio**
 
-![Production Dashboard](images/dash-04.png)
+![Production Dashboard](images/dash-06.png)
 
 The final product is a dynamic Looker Studio dashboard that integrates all key KPIs and trends into a user-friendly visual format.
 
