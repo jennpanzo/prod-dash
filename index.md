@@ -4,7 +4,7 @@ layout: home
 ---
 
 # Production Efficiency Dashboard
-###### _Tools: Microsoft Excel, MySQL, Looker Studio_
+###### _Tools: Asana API, Python, Google Sheets, BigQuery, Looker Studio_
 <br/>
 
 ![Placeholder File](images/hill.jpg)
