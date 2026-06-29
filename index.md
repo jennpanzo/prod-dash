@@ -4,7 +4,7 @@ layout: home
 ---
 
 # Production Efficiency Dashboard
-###### _Tools: Asana API, Google Sheets, BigQuery, Looker Studio_
+###### _Tools: Asana API, Google Cloud Scheduler, BigQuery, Looker Studio_
 <br/>
 
 ![Placeholder File](images/hill.jpg)
