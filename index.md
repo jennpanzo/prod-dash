@@ -10,38 +10,42 @@ layout: home
 ![Placeholder File](images/hill.jpg)
 
 ## **Overview**
-A fast-paced data company that is reliant on Asana for daily task management routinely conducts performance analyses across multiple timeframes (daily, weekly, monthly, quarterly, and annually). Each analysis cycle required new exports from different Asana projects, which often resulted in overlapping data, duplicated effort, and inconsistent formatting.
+A fast-paced data company that relies on Asana for daily task management routinely conducts performance analyses across multiple timeframes (daily, weekly, monthly, quarterly, and annually). As operational data continued to grow, manually exporting reports from multiple Asana projects became inefficient, resulting in duplicated effort, inconsistent datasets, and delayed reporting.
 
-To address this, a scalable and centralized approach was developed that eliminated redundant exports and made operations reporting significantly more efficient. A complete end-to-end ETL pipeline was designed and implemented, feeding into a local MySQL database that serves as the single source of truth for task, roster, and team data. The new structure enables flexible data exploration using SQL, automated exploratory analysis in Python, and final reporting through interactive Looker Studio dashboards.
+To address this, a scalable cloud-based ETL pipeline was developed to automate data extraction, centralize storage, and streamline reporting. Production data is automatically retrieved from the Asana API on a scheduled basis, transformed and stored in BigQuery, and visualized through interactive Looker Studio dashboards. This centralized architecture serves as the single source of truth for task, roster, and team data while enabling flexible SQL analysis and automated reporting.
 
 ## **Problem Statement**
 
-Our team routinely analyzes data from Asana to assess operational metrics like task volume, project completion rate, and productivity over various time intervals. Because Asana does not natively support long-term storage or complex querying, we exported data manually from different Asana projects at every reporting cycle.
+Our team routinely analyzes Asana data to assess operational metrics such as task volume, project completion rate, and team productivity across multiple reporting periods. While Asana is well suited for project management, it is not designed to support historical reporting or complex analytical queries.
 
 This process led to:
-* **Redundant exports**: The same data was exported multiple times across different timeframes.
-* **Version control issues**: Multiple spreadsheet versions caused inconsistencies.
-* **Delayed reporting**: Time-consuming data prep slowed down our ability to act on insights.
+* **Manual reporting workflows**: Operational reports depended on repeatedly exporting project data before analysis.
+* **Inconsistent datasets**: Separate exports often contained overlapping records and varying formats.
+* **Delayed reporting**: Significant time was spent preparing data before meaningful analysis could begin.
 
-The challenge was to automate and centralize our data pipeline, ensuring consistency, accessibility, and speed in our analysis process.
+The challenge was to automate data collection and centralize reporting, ensuring consistent, reliable, and timely operational insights.
 
 ## **ETL Pipeline Design & Implementation**
 
-The workflow began with identifying the inefficiencies caused by repeated Asana data exports, particularly for recurring operational reviews. Data exports were often customized for individual reporting requests, creating multiple versions of the same underlying data.
+The workflow began by identifying inefficiencies caused by recurring manual exports from multiple Asana projects. Since operational reports were generated frequently, analysts spent considerable time downloading, validating, and consolidating datasets before each reporting cycle.
 
-To streamline this, an Extract-Transform-Load (ETL) pipeline was implemented to ingest and standardize data from various Asana project exports.
+To streamline this process, an automated Extract-Transform-Load (ETL) pipeline was designed to collect operational data directly from the Asana API, standardize it within BigQuery, and serve it to downstream reporting tools.
 
 ### Extract
 
-Raw data was extracted in spreadsheet form from multiple Asana projects. These exports varied in structure depending on the reporting cycle or the team that generated them. Each export contained partial views of operational data like tasks, subtasks, assignees, and related metadata.
+A Python application connects to the Asana REST API using a secure Personal Access Token to retrieve task data from multiple production projects. The extraction process captures task details, subtasks, assignees, project information, due dates, completion status, and custom metadata required for reporting.
+
+The extraction job is automatically triggered by Google Cloud Scheduler at scheduled intervals, eliminating the need for recurring manual CSV exports while ensuring new production data is consistently collected.
 
 ### Transform
 
-Before integration into the database, the exported spreadsheets were cleaned and merged using VLOOKUP and INDEX-MATCH in Excel. This process resolved structural inconsistencies and aligned fields such as due dates, assignees, task descriptions, and project identifiers. Key variables were standardized across all files to ensure referential consistency across related tables. Additional transformations addressed duplicated entries, timezone normalization, and missing value imputation.
+Raw data is first loaded into staging tables within BigQuery before undergoing SQL-based transformations. Additional validation and reference data are maintained in Google Sheets for lookup values and business rules where appropriate.
+
+The transformation process standardizes field names, removes duplicate records, normalizes timestamps, resolves missing values, and aligns relationships between tasks, rosters, team members, and partner organizations. These transformations produce analytics-ready datasets optimized for reporting.
 
 ### Load
 
-Transformed data was then imported into a local MySQL database built to reflect the structure of the operational workflow. Tables were normalized and indexed to enable efficient querying and support scalable data analysis. Key tables included:
+The transformed datasets are loaded into BigQuery, which serves as the centralized cloud data warehouse for operational reporting. Tables are organized using a relational schema to support efficient SQL queries and scalable analytics. Key tables include:
 
 * **Tasks**: Containing task-level data such as page title, subtasks, assignee, related roster, project name, due date, and current status.
 * **Team**: Listing team members with associated email addresses and shift schedules.
@@ -49,18 +53,18 @@ Transformed data was then imported into a local MySQL database built to reflect 
 * **Partners**: Capturing external partner details like name, company, email, and their associated rosters or tasks.
 
 ## **Data Collection and Preparation**
-The raw data was initially exported from multiple Asana projects, which led to fragmented spreadsheets with varying formats. We consolidated these using VLOOKUP and INDEX-MATCH in Excel to form a master dataset.
+Operational data is automatically collected from multiple Asana projects through scheduled API requests and stored in BigQuery. Reference tables maintained in Google Sheets are used to support lookups, validation, and standardized business logic during the transformation process.
 
 ### Dataset Overview
 * **Rows (Records)**: 48,000+
 * **Columns (Variables)**: 76
-* **Source**: Aggregated from various Asana project exports, manually merged via spreadsheets before uploading to SQL
+* **Source**: Asana API, automatically extracted through scheduled ETL processes and stored in BigQuery
 
 Each record represents a unique task or entity, linked to other entities like team members, rosters, and partner companies.
 
 ## **Database Schema & Data Structure**
 
-We designed a relational schema with the following core tables:
+A relational schema was implemented within BigQuery using the following core tables:
 1. Tasks Table
 1. Team Table
 1. Rosters Table
@@ -72,11 +76,11 @@ We designed a relational schema with the following core tables:
 * `rosters.assignee` connects with `team.member_name`
 * `partners.name` links to `tasks.data_source` and `rosters.data_source`
 
-These relational links enable comprehensive queries across the operational structure.
+These relationships enable efficient SQL queries across the operational workflow while maintaining referential integrity.
 
 ## **Data Lookup and SQL Querying**
 
-Once the database was established, we replaced spreadsheet filtering with precise SQL queries. Here are examples of queries we used to access key insights:
+Once the data warehouse was established, SQL queries in BigQuery replaced manual spreadsheet filtering. These queries were used to generate operational insights and provide datasets for dashboard visualizations.
 
 1. Task Volume by Month
 ```sql
@@ -112,7 +116,7 @@ These queries serve as building blocks for dashboard visualizations and KPI summ
 
 ## **Data Analysis and KPI Calculation**
 
-After retrieving cleaned, structured data via SQL, we performed further analysis using Excel.
+After retrieving clean, structured datasets from BigQuery, SQL was used to calculate operational metrics while Google Sheets was used for lightweight validation and supporting lookup tables where necessary.
 
 ### Key Operational KPIs
 
@@ -127,7 +131,7 @@ Here are some of the most relevant performance metrics we tracked:
 * **QA Pass Rate**: Percentage of completed tasks that passed quality assurance review on the first evaluation.
 * **Tasks Stuck in Production**: Tasks flagged as delayed, blocked, or requiring additional action before completion.
 
-These KPIs are purely operational in focus and exclude any marketing, revenue, or customer-related metrics.
+These KPIs focus exclusively on operational performance and production efficiency.
 
 ## **Visualization in Looker Studio**
 
@@ -146,13 +150,14 @@ The final product is a dynamic Looker Studio dashboard that integrates all key K
 
 ### Data Pipeline
 
-1. SQL queries extract pre-cleaned datasets.
-1. Exported as `.csv` and analyzed in Excel.
-1. The `.xlxs` file is saved and uploaded to Google Sheets. It replaces the file that is already connected directly to Looker Studio.
-1. Looker Studio refreshes periodically to reflect updated analysis results.
+1. Google Cloud Scheduler automatically triggers the ETL pipeline.
+1. Python extracts production data from the Asana API.
+1. Raw data is loaded into BigQuery staging tables.
+1. SQL transformations generate analytics-ready reporting tables.
+1. Looker Studio connects directly to BigQuery and refreshes dashboards automatically.
 
-The dashboard allows stakeholders to monitor performance in real-time, spot anomalies, and evaluate trends over time.
+The dashboard enables stakeholders to monitor production performance in near real-time, identify operational bottlenecks, and evaluate productivity trends across multiple reporting periods.
 
 ## **Conclusion**
 
-This project successfully transformed a repetitive and error-prone data export process into a streamlined analytical workflow. By creating a centralized SQL database and connecting it to Looker Studio, we reduced manual work, improved accuracy, and enhanced our ability to extract meaningful operational insights.
+This project transformed a repetitive and manual reporting process into an automated cloud-based analytics solution. By integrating the Asana API with BigQuery and Looker Studio through a scheduled ETL pipeline, operational data became centralized, consistent, and readily available for analysis. The solution reduced manual effort, improved reporting accuracy, and provided stakeholders with timely insights to support data-driven operational decisions.
